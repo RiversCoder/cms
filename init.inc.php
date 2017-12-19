@@ -9,6 +9,8 @@ require ROOT_PATH.'/config/profile.inc.php';
 require ROOT_PATH.'/includes/Templates.class.php';
 //引入数据库
 require ROOT_PATH.'/includes/DB.class.php';
+//引入工具库
+require_once ROOT_PATH.'/includes/Tool.class.php';
 //缓存机制
 require 'cache.inc.php';
 //清除未定义变量报错
