@@ -23,7 +23,7 @@
 					<td><?php echo $value->login_count?></td>
 					<td><?php echo $value->last_ip?></td>
 					<td><?php echo $value->last_time?></td>
-					<td><a href='?action=update'>修改</a> | <a href='?action=delete'>删除</a></td>
+					<td><a href='?action=update&id=<?php echo $value->id?>'>修改</a> | <a href='?action=delete&id=<?php echo $value->id?>'>删除</a></td>
 				</tr>
 			<?php } ?>
 		</table>
@@ -40,8 +40,8 @@
 				<tr><td>等　级：<select name="level">
 									<option value="1">后台游客</option>
 									<option value="2">会员专员</option>
-									<option value="3">评论专员</option>
-									<option value="4">发帖专员</option>
+									<option value="3">发帖专员</option>
+									<option value="4">评论专员</option>
 									<option value="5">普通管理员</option>
 									<option value="6">超级管理员</option>
 								 </select>
@@ -56,21 +56,34 @@
 	<?php if ($this->_vars['update']) {?>
 		<form method="post">
 			<table cellspacing="0" class="left">
-				<tr><td>用户名：<input type="text" name="admin_user" class="text" /></td></tr>
+				<tr><td>用户名：<input type="text" name="admin_user" class="text" value="<?php echo $this->_vars['update_admin_user'];?>" /></td></tr>
 				<tr><td>密　码：<input type="password" name="admin_pass" class="text" /></td></tr>
-				<tr><td>等　级：<select name="level">
-								<option value="1">后台游客</option>
+				<tr><td>等　级：<select name="level" class="updateSelect">
+									<option value="1">后台游客</option>
 									<option value="2">会员专员</option>
-									<option value="3">评论专员</option>
-									<option value="4">发帖专员</option>
+									<option value="3">发帖专员</option>
+									<option value="4">评论专员</option>
 									<option value="5">普通管理员</option>
 									<option value="6">超级管理员</option>
-
 								 </select>
 				</td></tr>
 				<tr><td><input type="submit" name="update" value="修改管理员" class="submit" /> [ <a href="manage.php?action=list">返回列表</a> ]</td></tr>
 			</table>
 		</form>
+		<script type="text/javascript">
+			~function(){
+				var updateSelect = document.querySelector('.updateSelect');
+				var options = updateSelect.children;
+				console.log(options);
+				for(var i=0;i<options.length;i++)
+				{
+					if(options[i].value == <?php echo $this->_vars['update_level'];?>)
+					{
+						options[i].setAttribute('selected','selected');
+					}
+				}
+			}();
+		</script>
 	<?php } ?>
 
 

@@ -9,6 +9,7 @@
 		private $admin_user;
 		private $admin_pas;
 		private $level;
+		private $id;
 
 		//构造方法
 		public function __construct(&$tpl)
@@ -27,6 +28,7 @@
 
 			//业务流程控制 操作界面显示
 			@$r_result = $_GET['action'];
+
 			switch ($r_result) 
 			{
 				case 'list':
@@ -36,6 +38,7 @@
 
 				case 'add':
 					
+					//检测当前页面是否发出POST请求 并且检测$_POST['add']是否存在	
 					if(isset($_POST['add']))
 					{	
 						//获取数据
@@ -45,15 +48,7 @@
 
 						//执行添加操作
 						$getResult = $this->addManage();
-
-						if($getResult > 0)
-						{
-							Tool::alertLocation('添加成功!','?action=list');
-						}
-						else
-						{
-							Tool::alertLocation('添加失败，请返回重新添加');
-						}
+						$this->alertInfo($getResult,$this->alertInfos()['add']);	
 					}
 
 					$this->tpl->assign('add',true);
@@ -61,11 +56,47 @@
 				break;
 
 				case 'update':
+					
+					//1. 获取id
+					if(!isset($_GET['id']) || !is_numeric($_GET['id']))
+					{
+						Tool::alertBack('修改错误!');
+					}
+
+
+					//3. 查询当前要修改的数据 -> 需要获取当前页面的ID值
+					$this->id = $_GET['id'];
+					$current = $this->selectCurrent();
+
+					//4.检测当前页面是否发出POST请求 并且是否能接收到$_POST['update']值
+					if(isset($_POST['update']))
+					{	
+						//执行修改操作
+						$getResult = $this->upadteManage();
+						//弹窗设置
+						$this->alertInfo($getResult,$this->alertInfos()['update']);	
+					}	
+
+					//2. 渲染页面 注入变量
 					$this->tpl->assign('update',true);
 					$this->tpl->assign('title','修改管理员');
+
 				break;
 				
 				case 'delete':
+					
+					//1. 获取id
+					if(!isset($_GET['id']) || !is_numeric($_GET['id']))
+					{
+						Tool::alertBack('删除错误!');
+					}
+
+					//3. 删除操作
+					$this->id = $_GET['id'];
+					$getResult = $this->deleteManage();
+					$this->alertInfo($getResult,$this->alertInfos()['delete']);	
+						
+					//2. 渲染页面 
 					$this->tpl->assign('delete',true);
 					$this->tpl->assign('title','删除管理员');
 				break;
@@ -144,18 +175,83 @@
 			return $affectd_rows;
 		}
 
+		//查询当前ID的管理员数据
+		public function selectCurrent()
+		{
+			//获取数据库连接
+			$mysqli = DB::getDB();
+			//获取数据的ID
+			$this->id = $_GET['id'];
+
+			//1. 查询当前ID对应的数据,注入manage.tpl模板中
+			$sql_select =  "SELECT admin_user,level FROM cms_manage WHERE id = {$this->id}";
+			$result = $mysqli->query($sql_select);
+			$obj = $result->fetch_object();
+
+			//注入变量
+			$this->tpl->assign('update_admin_user',$obj->admin_user);
+			$this->tpl->assign('update_level',$obj->level);
+
+			//清楚数据库连接
+			DB::unDB($result,$mysqli);
+
+			return $obj;
+		}
 
 		//修改管理员
 		public function upadteManage()
-		{
-			echo '修改';
+		{	
+			$mysqli = DB::getDB();
+
+			$this->admin_user = $_POST['admin_user'];
+			$this->admin_pas = $_POST['admin_pass'];
+			$this->level = $_POST['level'];
+
+			$sql_update = "UPDATE cms_manage SET admin_user='{$this->admin_user}',admin_pas='{$this->admin_pas}',level={$this->level} WHERE id = {$this->id}";
+			$result = $mysqli->query($sql_update);
+			$getResult = $mysqli->affected_rows;
+			
+			DB::unDB($result,$mysqli);
+
+			return $getResult;
 		}
 
 
 		//删除管理员
 		public function deleteManage()
 		{
-			echo '删除';
+			//获取id成功
+			$mysqli = DB::getDB();
+			
+			$sql = "DELETE FROM cms_manage WHERE id = {$this->id}";
+			$result = $mysqli->query($sql);
+			$getResult = $mysqli->affected_rows;
+			DB::unDB($result,$mysqli);
+
+			return  $getResult;
+		}
+
+		//弹出信息窗口
+		private function alertInfo($checkResult,$info)
+		{
+			if($checkResult > 0)
+			{
+				Tool::alertLocation($info['success'],'?action=list');
+			}
+			else
+			{
+				Tool::alertBack($info['error']);
+			}
+		}
+
+		private function alertInfos()
+		{
+			$arr = array();
+			$arr['update'] = Array('success'=>'修改成功','error'=>'修改失败');
+			$arr['add'] = Array('success'=>'添加成功','error'=>'添加失败');
+			$arr['delete'] = Array('success'=>'删除成功','error'=>'删除失败');
+			
+			return $arr;
 		}
 	}
 ?>
