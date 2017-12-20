@@ -4,7 +4,7 @@
 	define('DB_HOST','localhost');										//主机IP
 	define('DB_USER','root');												//账号
 	define('DB_PASS','root');										//密码
-	define('DB_NAME','cmss');												//数据库
+	define('DB_NAME','cms');												//数据库
 
 	//模板配置信息
 	define('TPL_DIR',ROOT_PATH.'/templates/');                 //模板文件目录
