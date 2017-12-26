@@ -19,6 +19,8 @@
 			//3. 清楚数据库连接
 			DB::unDB($result,$mysqli);
 
+			echo $mysqli->errno;
+
 			return $getResult;
 		}
 

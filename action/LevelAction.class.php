@@ -2,15 +2,15 @@
 	/*
 	  执行 ManageAction 
 	*/
-	class ManageAction extends Action
+	class LevelAction extends Action
 	{
 		
 		//构造方法 初始化
 		public function __construct(&$_tpl)
 		{	
 			//在parent::__construct($_tpl,new ManageModel($_tpl)) 之前都不能用 $this->tpl 以及 $this->model 因为还没有给父类（基类）的属性添加属性值
-			$mmt = new ManageModel($_tpl);
-			parent::__construct($_tpl,$mmt);
+			$lmt = new LevelModel($_tpl);
+			parent::__construct($_tpl,$lmt);
 			$this->_action();
 		}
 
@@ -46,8 +46,8 @@
 				break;
 			}
 
-			//获取列表数据后 渲染manage.tpl模板页面
-			$this->renderManage();
+			//获取列表数据后 渲染level.tpl模板页面
+			$this->renderLevel();
 		}
 
 
@@ -57,18 +57,19 @@
 			if(isset($_POST['add']))
 			{	
 				//获取数据
-				$this->model->admin_user = $_POST['admin_user'];
-				$this->model->admin_pas = md5($_POST['admin_pass']);
 				$this->model->level = $_POST['level'];
+				$this->model->level_name = $_POST['level_name'];
+				$this->model->level_info = $_POST['level_info'];
 
 				//执行添加操作
-				$getResult = $this->model->addManage();
+				$getResult = $this->model->addLevel();
+
+				echo $getResult;
 				$this->model->alertInfo($getResult,$this->model->alertInfos()['add']);	
 			}
 
 			$this->tpl->assign('add',true);
-			$this->tpl->assign('title','添加管理员');
-			$this->tpl->assign('levels',$this->model->fetchDegree());
+			$this->tpl->assign('title','添加等级');
 		}
 
 
@@ -89,15 +90,15 @@
 			if(isset($_POST['update']))
 			{	
 				//执行修改操作
-				$getResult = $this->model->upadteManage();
+				$getResult = $this->model->upadteLevel();
+
 				//弹窗设置
 				$this->model->alertInfo($getResult,$this->model->alertInfos()['update']);	
 			}	
 
 			//2. 渲染页面 注入变量
 			$this->tpl->assign('update',true);
-			$this->tpl->assign('title','修改管理员');
-			$this->tpl->assign('levels',$this->model->fetchDegree());
+			$this->tpl->assign('title','修改等级');
 		}
 
 
@@ -111,19 +112,19 @@
 
 			//3. 删除操作
 			$this->model->id = $_GET['id'];
-			$getResult = $this->model->deleteManage();
+			$getResult = $this->model->deleteLevel();
 			$this->model->alertInfo($getResult,$this->model->alertInfos()['delete']);	
 				
 			//2. 渲染页面 
 			$this->tpl->assign('delete',true);
-			$this->tpl->assign('title','删除管理员');
+			$this->tpl->assign('title','删除等级');
 		}
 
 
 		private function defaults()
 		{
 			$this->tpl->assign('list',true);
-			$this->tpl->assign('title','管理员列表');
+			$this->tpl->assign('title','等级列表');
 		}
 
 		private function initRender()
@@ -134,14 +135,14 @@
 			$this->tpl->assign('delete',false);
 		}
 
-		private function renderManage()
+		private function renderLevel()
 		{
 			//获取列表数据
-			$arr =$this->model->getManages();
+			$arr =$this->model->getLevels();
 
 			//在manage.tpl模板中 注入变量
-			$this->tpl->assign('AllManage',$arr);
-			$this->tpl->display('manage.tpl');
+			$this->tpl->assign('AllLevel',$arr);
+			$this->tpl->display('level.tpl');
 		}
 	}
 ?>

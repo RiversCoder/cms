@@ -49,3 +49,15 @@ public function fetchDegree()
 $this->tpl->assign('levels',$this->model->fetchDegree());
 ```
 
+### 3. 21点26分更新信息 新增等级管理
+
+```html
+ 	思路：
+ 		1. 其数据库操作方式, 以及基类和模型类的处理方式与管理员管理几乎保持一致
+ 		2. 在templates目录下新建level.tpl, 粘贴来自manage.tpl的内容, 进行简单的修改
+ 		3. 在admin目录下新建level.php,用来解析显示level.tpl
+ 		4. 在model目录下新建LevelModel.class.php 粘贴来自ManageModel.class.php的内容, 同样继承基类Model,再对方法进行对应的修改
+ 		5. 在action目录下新建LevelAction.class.php 粘贴来自ManageAction.class.php的内容, 同样继承基类Action,再对方法进行对应的修改
+ 		6. 运行调试，建议开启 mysqli::errno 进行排错
+```
+
