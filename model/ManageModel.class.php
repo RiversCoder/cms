@@ -2,7 +2,7 @@
 	/**
 	*  Manage 管理员实体类 : manage.php 数据层的所有操作
 	*/
-	class Manage extends Model
+	class ManageModel extends Model
 	{
 		
 		private	$tpl;
@@ -68,9 +68,23 @@
 			return $affectd_rows;
 		}
 
+		//查询所有等级列表
+		public function fetchDegree()
+		{
+			//1.查询等级列表sql语句
+			$sql = "SELECT level_name,level FROM cms_level ORDER BY id DESC";
+
+			//2.执行新增 并得到操作情况
+			$rows = parent::fetchMoreModel($sql);
+
+			return $rows;
+		}
+
+
 		//查询当前ID的管理员数据
 		public function selectCurrent()
 		{
+
 			//获取数据的ID
 			$this->id = $_GET['id'];
 

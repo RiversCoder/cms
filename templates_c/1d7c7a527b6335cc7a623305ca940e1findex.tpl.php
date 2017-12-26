@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="style/index.css" />
 </head>
 <body>
-<?php include 'header.inc.php';?>
+<?php $tpl->create('header.tpl'); ?>
 <div id="user">
 	<h2>会员信息</h2>
 	<form>
@@ -202,6 +202,6 @@
 		</ul>
 	</div>
 </div>
-<?php include 'footer.inc.php';?>
+<?php $tpl->create('footer.tpl'); ?>
 </body>
 </html>

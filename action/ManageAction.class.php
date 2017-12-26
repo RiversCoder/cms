@@ -8,8 +8,8 @@
 		//构造方法 初始化
 		public function __construct(&$_tpl)
 		{	
-			//在parent::__construct($_tpl,new Manage($_tpl)) 之前都不能用 $this->tpl 以及 $this->model 因为还没有给父类（基类）的属性添加属性值
-			parent::__construct($_tpl,new Manage($_tpl));
+			//在parent::__construct($_tpl,new ManageModel($_tpl)) 之前都不能用 $this->tpl 以及 $this->model 因为还没有给父类（基类）的属性添加属性值
+			parent::__construct($_tpl,new ManageModel($_tpl));
 			$this->_action();
 		}
 
@@ -56,9 +56,9 @@
 			if(isset($_POST['add']))
 			{	
 				//获取数据
-				$this->model->idadmin_user = $_POST['admin_user'];
-				$this->model->idadmin_pas = md5($_POST['admin_pass']);
-				$this->model->idlevel = $_POST['level'];
+				$this->model->admin_user = $_POST['admin_user'];
+				$this->model->admin_pas = md5($_POST['admin_pass']);
+				$this->model->level = $_POST['level'];
 
 				//执行添加操作
 				$getResult = $this->model->addManage();
@@ -67,6 +67,7 @@
 
 			$this->tpl->assign('add',true);
 			$this->tpl->assign('title','添加管理员');
+			$this->tpl->assign('levels',$this->model->fetchDegree());
 		}
 
 
@@ -95,6 +96,7 @@
 			//2. 渲染页面 注入变量
 			$this->tpl->assign('update',true);
 			$this->tpl->assign('title','修改管理员');
+			$this->tpl->assign('levels',$this->model->fetchDegree());
 		}
 
 

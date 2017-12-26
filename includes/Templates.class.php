@@ -37,6 +37,9 @@ class Templates {
 	
 	//display()方法
 	public function display($_file) {
+
+		$tpl = $this;
+
 		//设置模板的路径
 		$_tplFile = TPL_DIR.$_file;
 		//判断模板是否存在
@@ -79,7 +82,7 @@ class Templates {
 	}
 	
 	//创建create方法，用于header和footer这种模块模板解析使用，而不需要生成缓存文件
-	public function create($_file) {
+	public function create($_file){
 		//设置模板的路径
 		$_tplFile = TPL_DIR.$_file;
 		//判断模板是否存在
@@ -100,12 +103,5 @@ class Templates {
 		//载入编译文件
 		include $_parFile;
 	}
-	
-	
-	
-	
-	
-	
-	
 }
 ?>

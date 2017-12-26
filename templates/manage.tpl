@@ -4,13 +4,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>main</title>
 <link rel="stylesheet" type="text/css" href="../style/admin.css" />
+<script type="text/javascript" src="../js/admin_manage.js"></script>
 </head>
 <body id="main">
 
 
 	<div class="map">
-		管理首页 &gt;&gt; 管理员管理 &gt;&gt; <strong>{$title}</strong>
+		管理首页 &gt;&gt; 管理员管理 &gt;&gt; <strong id='title'>{$title}</strong>
 	</div>
+
+	<ol>
+		<li><a href="manage.php?action=list" class="selected">管理员列表</a></li>
+		<li><a href="manage.php?action=add">添加管理员</a></li>
+		{if $update}
+			<li><a href="manage.php?action=update">修改管理员</a></li>
+		{/if}
+	</ol>
 
 	{if $list}
 		<table cellspacing="0">
@@ -38,12 +47,9 @@
 				<tr><td>用户名：<input type="text" name="admin_user" class="text" /></td></tr>
 				<tr><td>密　码：<input type="password" name="admin_pass" class="text" /></td></tr>
 				<tr><td>等　级：<select name="level">
-									<option value="1">后台游客</option>
-									<option value="2">会员专员</option>
-									<option value="3">发帖专员</option>
-									<option value="4">评论专员</option>
-									<option value="5">普通管理员</option>
-									<option value="6">超级管理员</option>
+									{foreach $levels(key,value)}
+										<option value="{@value->level}">{@value->level_name}</option>
+									{/foreach} 
 								 </select>
 				</td></tr>
 				<tr><td><input type="submit" name="add" value="新增管理员" class="submit" /> [ <a href="manage.php?action=list">返回列表</a> ]</td></tr>
@@ -59,12 +65,9 @@
 				<tr><td>用户名：<input type="text" name="admin_user" class="text" value="{$update_admin_user}" /></td></tr>
 				<tr><td>密　码：<input type="password" name="admin_pass" class="text" /></td></tr>
 				<tr><td>等　级：<select name="level" class="updateSelect">
-									<option value="1">后台游客</option>
-									<option value="2">会员专员</option>
-									<option value="3">发帖专员</option>
-									<option value="4">评论专员</option>
-									<option value="5">普通管理员</option>
-									<option value="6">超级管理员</option>
+									{foreach $levels(key,value)}
+										<option value="{@value->level}">{@value->level_name}</option>
+									{/foreach} 
 								 </select>
 				</td></tr>
 				<tr><td><input type="submit" name="update" value="修改管理员" class="submit" /> [ <a href="manage.php?action=list">返回列表</a> ]</td></tr>

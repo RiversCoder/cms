@@ -1,5 +1,5 @@
 @CHARSET "UTF-8";
-body,h1,h2,h3,p,form,ul,li,dl,dt,dd {
+body,h1,h2,h3,p,form,ul,ol,li,dl,dt,dd {
 	padding:0;
 	margin:0;
 }
@@ -7,7 +7,7 @@ body {
 	background:#fff;
 	font-size:12px;
 }
-ul {
+ul,ol {
 	list-style-type:none;
 }
 #top {
@@ -146,8 +146,25 @@ ul {
 	cursor:pointer;
 	margin:0 0 0 47px;
 }
-
-
+#main ol {
+	padding:0 0 0 26px;
+	height:35px;
+}
+#main ol li {
+	float:left;
+	padding:0 10px 0 0;
+}
+#main ol li a {
+	padding:6px;
+	display:block;
+}
+#main ol li a:hover {
+	background:#eee;
+}
+#main ol li a.selected {
+	background:#3b6ea5;
+	color:#fff;
+}
 
 
 
