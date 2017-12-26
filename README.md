@@ -49,7 +49,7 @@ public function fetchDegree()
 $this->tpl->assign('levels',$this->model->fetchDegree());
 ```
 
-### 3. 21点26分更新信息 新增等级管理
+### 2017年12月26日21:26:22 新增等级管理
 
 ```html
 思路：
