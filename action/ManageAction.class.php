@@ -121,7 +121,15 @@
 
 
 		private function defaults()
-		{
+		{	
+
+			//初始化分页
+			$arr = $this->model->getManages();
+			$totalRecords = count($arr);
+			$pages = new Pages($totalRecords,LIST_LIMIT);
+			$this->model->limit = $pages->limitStr;
+			
+			
 			$this->tpl->assign('list',true);
 			$this->tpl->assign('title','管理员列表');
 		}

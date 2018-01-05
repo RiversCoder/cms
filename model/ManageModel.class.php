@@ -10,6 +10,7 @@
 		private $admin_pas;
 		private $level;
 		private $id;
+		private $limit = '';
 
 		//构造方法
 		public function __construct(&$tpl)
@@ -42,8 +43,7 @@
 						m.level = l.level 	 
 					ORDER BY 
 						m.id ASC
-					LIMIT 
-						0,20';	
+					'.$this->limit;	
 			
 			//2. 获取数据				
 			$_html = array();
