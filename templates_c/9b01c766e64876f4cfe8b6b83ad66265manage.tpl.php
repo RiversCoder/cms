@@ -36,8 +36,11 @@
 				</tr>
 			<?php } ?>
 		</table>
+			
+		<div id="page"><?php echo $this->_vars['page'];?></div>	
 
 		<p class="center">[<a href='?action=add'>新增管理员</a>]</p>
+	
 	<?php } ?>
 
 

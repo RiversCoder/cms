@@ -129,6 +129,8 @@
 			$pages = new Pages($totalRecords,LIST_LIMIT);
 			$this->model->limit = $pages->limitStr;
 			
+			//注入分页内容
+			$this->tpl->assign('page',$pages->showPage());
 			
 			$this->tpl->assign('list',true);
 			$this->tpl->assign('title','管理员列表');

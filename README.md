@@ -107,6 +107,8 @@ if($manageMode->selectCurrentByLevel())
 ```
 1. 在配置文件中定义分页的limit
 2. 新建分页类文件Pages.class.php 使用拦截器对总记录数、每页记录数、limitStr 赋值
+4. 获取当前页码，获取总页码，获取当前页记录，来满足切换分页时sql语句中...limit x,y 中，x,y的值
+
 ```
 
 ```
@@ -115,4 +117,7 @@ $arr = $this->model->getManages();
 $totalRecords = count($arr);
 $pages = new Pages($totalRecords,LIST_LIMIT);
 $this->model->limit = $pages->limitStr;
+
+2.在Pages类中的showPage()生成分页列表 注入模板变量{$page}中
+
 ```

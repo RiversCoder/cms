@@ -10,6 +10,10 @@ body {
 ul,ol {
 	list-style-type:none;
 }
+#page {
+	text-align:center;
+	padding:10px;
+}
 #top {
 	background:url(../images/admin_top_bg.gif);
 }
@@ -142,9 +146,17 @@ ul,ol {
 	height:19px;
 	background:#fff;
 }
+#main form textarea {
+	font-size:13px;
+	width:220px;
+	height:100px;
+	background:#fff;
+	border:1px solid #ccc;
+	margin:0 0 0 60px;
+}
 #main form input.submit {
 	cursor:pointer;
-	margin:0 0 0 47px;
+	margin:0 0 0 60px;
 }
 #main ol {
 	padding:0 0 0 26px;

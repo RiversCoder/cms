@@ -36,8 +36,11 @@
 				</tr>
 			{/foreach}
 		</table>
+			
+		<div id="page">{$page}</div>	
 
 		<p class="center">[<a href='?action=add'>新增管理员</a>]</p>
+	
 	{/if}
 
 
