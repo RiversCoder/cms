@@ -79,9 +79,9 @@ $this->tpl->assign('levels',$this->model->fetchDegree());
 > 7.数据库详细匹队验证
 
 ```
-	1. 用户名不得重复 -> 在类ManageAction中新建用户名查询方法
-	2. 等级名称不得重复 -> 在类ManageAction中新建等级名称查询方法
-	3. 防止等级误删除 -> 在没有被用户使用的情况下可以删除 -> 通过当前等级去查询对应的管理员表中是否去查询是否拥有这条记录
+1. 用户名不得重复 -> 在类ManageAction中新建用户名查询方法
+2. 等级名称不得重复 -> 在类ManageAction中新建等级名称查询方法
+3. 防止等级误删除 -> 在没有被用户使用的情况下可以删除 -> 通过当前等级去查询对应的管理员表中是否去查询是否拥有这条记录
 ``` 
 
 ```php
@@ -108,16 +108,32 @@ if($manageMode->selectCurrentByLevel())
 1. 在配置文件中定义分页的limit
 2. 新建分页类文件Pages.class.php 使用拦截器对总记录数、每页记录数、limitStr 赋值
 4. 获取当前页码，获取总页码，获取当前页记录，来满足切换分页时sql语句中...limit x,y 中，x,y的值
-
+5. 文本页码跳转( 上一页,下一页,首页,尾页 ); 数字页码跳转;  获取当前url( 因为不同模块下分页情况不同 ); 
+6. 智能分页
 ```
 
 ```
-1. 初始化分页
+1. 初始化分页 在Pages类中的showPage()生成分页列表 注入模板变量{$page}中
+
 $arr = $this->model->getManages();
 $totalRecords = count($arr);
 $pages = new Pages($totalRecords,LIST_LIMIT);
 $this->model->limit = $pages->limitStr;
+$this->tpl->assign('page',$pages->showPage());
 
-2.在Pages类中的showPage()生成分页列表 注入模板变量{$page}中
+2.使用parse_url(url)解析url地址 使该分页类能同时在多个页面模块下实现分页
 
+private function setUrl()
+{	
+	$url = $_SERVER['REQUEST_URI'];
+	
+	if(!isset(parse_url($url)['query'])) return;
+
+	$urlquery = parse_url($url);
+	parse_str($urlquery['query'],$query);
+	unset($query['page']);
+	$url = $urlquery['path'].'?'.http_build_query($query);
+
+	return $url;
+}
 ```
