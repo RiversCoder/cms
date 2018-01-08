@@ -139,7 +139,7 @@ private function setUrl()
 	return $url;
 }
 
-3. 数字智能分页 ( 获取当前页码 $this->page , 以及当前页两边的偏移页码数 $this->crumbsep )
+3. 数字智能分页 ( 获取当前页码 $this->page , 当前页两边的偏移页码数 $this->crumbsep,  总页码数 $this->allPages)
 
 private function pageList()
 {
