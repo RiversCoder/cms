@@ -112,6 +112,8 @@ if($manageMode->selectCurrentByLevel())
 6. 智能分页	
 ```
 
+![separate page](/images/pagesep.png)
+
 ```php
 1. 初始化分页 在Pages类中的showPage()生成分页列表 注入模板变量{$page}中
 
@@ -136,4 +138,28 @@ private function setUrl()
 
 	return $url;
 }
+
+3. 数字智能分页 ( 获取当前页码 $this->page , 以及当前页两边的偏移页码数 $this->crumbsep )
+
+private function pageList()
+{
+	$pageNumLink = '';
+	$forStart = $this->page-$this->crumbsep<=0 ? 1 : $this->page-$this->crumbsep;
+	$forEnd = $this->page+$this->crumbsep>=$this->allPages ? $this->allPages : $this->page+$this->crumbsep;
+	
+	$pageNumLink .= '<a>...</a>';
+	for($i=$forStart;$i<=$forEnd;$i++)
+	{	
+		if($i == $this->page)
+		{
+			$pageNumLink .= '<a class="me" href="javascript:;"> '.$i.' </a>';
+			continue;
+		}
+		$pageNumLink .= '<a href="'.$this->urlStr.'&page='.$i.'"> '.$i.' </a>';
+	}
+	$pageNumLink .= '<a>...</a>';
+
+	return $pageNumLink;
+}
 ```
+
