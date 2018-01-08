@@ -11,6 +11,7 @@
 		private $page;		 //获取当前页码
 		private $allpages;   //获取总页码数
 		private $urlStr;	 //获取当前路径
+		private $crumbsep;	 //当前页两边的数字分页的量
 
 		//构造方法 初始化
 		function __construct($_total,$_pageSize)
@@ -21,6 +22,7 @@
 			$this->page = $this->setPage();
 			$this->limitStr = 'LIMIT '.($this->page-1)*$this->pageSize.','.$this->pageSize;
 			$this->urlStr = $this->setUrl();
+			$this->crumbsep = 2;
 		}
 
 		//设置拦截类
@@ -104,11 +106,20 @@
 		private function pageList()
 		{
 			$pageNumLink = '';
+			$forStart = $this->page-$this->crumbsep<=0 ? 1 : $this->page-$this->crumbsep;
+			$forEnd = $this->page+$this->crumbsep>=$this->allPages ? $this->allPages : $this->page+$this->crumbsep;
 			
-			for($i=1;$i<=$this->allPages;$i++)
-			{
-				$pageNumLink .= '[<a href="'.$this->urlStr.'&page='.$i.'"> '.$i.' </a>]';
+			$pageNumLink .= '<a>...</a>';
+			for($i=$forStart;$i<=$forEnd;$i++)
+			{	
+				if($i == $this->page)
+				{
+					$pageNumLink .= '<a class="me" href="javascript:;"> '.$i.' </a>';
+					continue;
+				}
+				$pageNumLink .= '<a href="'.$this->urlStr.'&page='.$i.'"> '.$i.' </a>';
 			}
+			$pageNumLink .= '<a>...</a>';
 
 			return $pageNumLink;
 		}

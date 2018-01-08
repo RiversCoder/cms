@@ -6,7 +6,7 @@
 	define('DB_PASS','root');										//密码
 	define('DB_NAME','cms');												//数据库
 
-	define('LIST_LIMIT',5);
+	define('LIST_LIMIT',1);
 
 	//模板配置信息
 	define('TPL_DIR',ROOT_PATH.'/templates/');                 //模板文件目录

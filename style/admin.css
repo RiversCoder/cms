@@ -10,10 +10,6 @@ body {
 ul,ol {
 	list-style-type:none;
 }
-#page {
-	text-align:center;
-	padding:10px;
-}
 #top {
 	background:url(../images/admin_top_bg.gif);
 }
@@ -177,9 +173,32 @@ ul,ol {
 	background:#3b6ea5;
 	color:#fff;
 }
-
-
-
+#page {
+	text-align:center;
+	padding:10px;
+}
+#page a {
+	border:1px solid #666;
+	padding:2px 5px;
+	margin:0 2px;
+	text-indent:2px;
+}
+#page a:hover,#page span.me,#page a.me{
+	color:#fff;
+	border:1px solid #000;
+	background:#000;
+	text-decoration:none;
+}
+#page span.disabled {
+	border:1px solid #ccc;
+	padding:2px 5px;
+	margin:0 2px;
+	color:#ccc;
+}
+#page span.me {
+	padding:2px 5px;
+	margin:0 2px;
+}
 
 
 
