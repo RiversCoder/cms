@@ -112,7 +112,7 @@ if($manageMode->selectCurrentByLevel())
 6. 智能分页	
 ```
 
-```
+```php
 1. 初始化分页 在Pages类中的showPage()生成分页列表 注入模板变量{$page}中
 
 $arr = $this->model->getManages();
