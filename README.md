@@ -163,3 +163,9 @@ private function pageList()
 }
 ```
 
+> 8.新增验证码类
+
+```
+1. 在includes目录下创建validateCode.class.php文件 提供生成图片接口 在外部实例化后调用
+2. ...
+```
