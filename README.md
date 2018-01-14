@@ -163,9 +163,19 @@ private function pageList()
 }
 ```
 
-> 8.新增验证码类
+> 8.新增验证码类 ValidateCode
 
 ```
 1. 在includes目录下创建validateCode.class.php文件 提供生成图片接口 在外部实例化后调用
-2. ...
+2. 对外渲染输出验证码图片
+public function dovImg()
+{
+	$this->createValidateBg(); 		//创建图片资源
+	$this->createValidateChar();  	//创建随机验证码字符
+	$this->createCode();			//在图片上生成验证码字符
+	$this->createLines();			//在图片生成随机线条
+	$this->createSnows();			//在图片生成随机*
+	$this->outPutImg();				//生成图片 对外输出
+}
 ```
+
