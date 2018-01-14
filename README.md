@@ -179,3 +179,6 @@ public function dovImg()
 }
 ```
 
+![validateCode](/images/validateCode.png)
+
+
