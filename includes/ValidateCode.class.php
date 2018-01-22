@@ -22,6 +22,16 @@
 		}
 
 
+		public function __get($key)
+		{
+			return $this->$key;
+		}
+
+		public function __set($key,$value)
+		{
+			$this->$key = $value;
+		}
+
 		//生成随机码 验证码位数 -- $this->vnumber
 		private function createValidateChar(){
 			
@@ -44,7 +54,7 @@
 			$this->vimg = imagecreatetruecolor($this->vwidth, $this->vheight);
 
 			//颜色
-			$color = imagecolorallocate($this->vimg, mt_rand(150,255),mt_rand(150,255),mt_rand(150,255) );
+			$color = imagecolorallocate($this->vimg, mt_rand(200,255),mt_rand(200,255),mt_rand(200,255) );
 
 			//绘制矩形
 			imagefilledrectangle($this->vimg, 0, 0, $this->vwidth, $this->vheight, $color);

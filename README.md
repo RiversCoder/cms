@@ -128,10 +128,15 @@ $this->tpl->assign('page',$pages->showPage());
 private function setUrl()
 {	
 	$url = $_SERVER['REQUEST_URI'];
-	
-	if(!isset(parse_url($url)['query'])) return;
+
+
+	if(!isset(parse_url($url)['query']))
+	{	
+		return $url.'?';
+	}	
 
 	$urlquery = parse_url($url);
+
 	parse_str($urlquery['query'],$query);
 	unset($query['page']);
 	$url = $urlquery['path'].'?'.http_build_query($query);
@@ -164,8 +169,8 @@ private function pageList()
 ```
 
 > 8.新增验证码类 ValidateCode
-
-![validateCode](/images/validateCode.png)
+>
+> ![validateCode](/images/validateCode.png)
 
 ```php
 1. 在includes目录下创建validateCode.class.php文件 提供生成图片接口 在外部实例化后调用

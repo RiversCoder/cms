@@ -69,7 +69,7 @@
 		//上一页
 		private function prevPage()
 		{
-			return ' <a href="'.$this->urlStr.'t&page='.($this->page-1).'">上一页 </a> ';
+			return ' <a href="'.$this->urlStr.'&page='.($this->page-1).'">上一页 </a> ';
 		}
 		
 		//下一页
@@ -88,13 +88,15 @@
 		private function setUrl()
 		{	
 			$url = $_SERVER['REQUEST_URI'];
-			
+		
+
 			if(!isset(parse_url($url)['query']))
-			{
-				return;
+			{	
+				return $url.'?';
 			}	
 
 			$urlquery = parse_url($url);
+
 			parse_str($urlquery['query'],$query);
 			unset($query['page']);
 			$url = $urlquery['path'].'?'.http_build_query($query);
