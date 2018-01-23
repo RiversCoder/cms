@@ -70,7 +70,7 @@
 			for($i=0;$i<mb_strlen($this->vchar);$i++)
 			{
 				$color = imagecolorallocate($this->vimg,mt_rand(0,155),mt_rand(0,155),mt_rand(0,155));
-				imagettftext($this->vimg, mt_rand(10,18), mt_rand(-30,30), $i/4*$this->vwidth+mt_rand(6,12),mt_rand($this->vheight/3,$this->vheight/1.2), $color ,$this->fontFile, $this->vchar[$i]);
+				imagettftext($this->vimg, mt_rand(15,18), mt_rand(-30,30), $i/4*$this->vwidth+mt_rand(6,12),mt_rand($this->vheight/3,$this->vheight/1.2), $color ,$this->fontFile, $this->vchar[$i]);
 			}
 		}
 

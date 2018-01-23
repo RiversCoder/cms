@@ -166,9 +166,36 @@
 			if(Validate::checkLength($_POST['code'],4,'equals')) Tool::alertBack('验证码必须是四位');
 
 			//验证 验证码 -> 匹配是否输入正确
-			echo $_SESSION['code'].'<br>';	
-			echo $_POST['code'];	
-				
+			if(Validate::checkEquals(strtolower($_SESSION['code']),strtolower($_POST['code']))) Tool::alertBack('验证码输入错误');
+			
+			//验证验证账号和密码                               
+			if(Validate::checkNull($_POST['admin_user'])) Tool::alertBack('用户名不能为空');
+			if(Validate::checkLength($_POST['admin_user'],2,'min')) Tool::alertBack('用户名不能小于2位');
+			if(Validate::checkLength($_POST['admin_user'],20,'max')) Tool::alertBack('用户名不能大于20位');	
+			if(Validate::checkNull($_POST['admin_pass'])) Tool::alertBack('密码不能为空');
+			if(Validate::checkLength($_POST['admin_pass'],16,'max')) Tool::alertBack('密码不能大于16位');
+			if(Validate::checkLength($_POST['admin_pass'],2,'min')) Tool::alertBack('密码不能小于2位');	
+			
+			//查询返回数据库验证
+			$this->model->admin_user = $_POST['admin_user'];
+			$this->model->admin_pas = md5($_POST['admin_pass']);
+			$obj = $this->model->getLoginManage();
+
+			if($obj)
+			{	
+				//设置后台界面用户信息
+				$_SESSION['admin']['admin_user'] = $obj->admin_user;
+				$_SESSION['admin']['level_name'] = $obj->level_name;
+
+				//登录成功直接进入后台
+				Tool::alertLocation(null,'admin.php');
+			}	
+			else
+			{
+				Tool::alertBack('用户名或密码错误');	
+			}
+
+
 			print_r($_POST);
 		}
 	}

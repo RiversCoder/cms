@@ -54,6 +54,31 @@
 			return $_html;
 		}
 
+		//查询登录管理员
+		public function getLoginManage()
+		{
+			//1. sql
+			$_sql = "SELECT 
+						m.admin_user,l.level_name
+					FROM 
+						cms_manage m ,cms_level l
+					WHERE
+						m.admin_user='$this->admin_user' 
+					AND 
+						m.admin_pas='$this->admin_pas'
+					AND
+						m.level = l.level	
+					LIMIT
+						1"
+					;		
+			
+			//2. 获取数据				
+			$data = parent::fetchModel($_sql);
+	
+			//3.返回查询数据
+			return $data;	
+		}
+
 
 		//新增管理员
 		public function addManage()
@@ -102,6 +127,7 @@
 			return $obj;
 		}
 
+
 		//修改管理员
 		public function upadteManage()
 		{	
@@ -145,6 +171,7 @@
 				Tool::alertBack($info['error']);
 			}
 		}
+
 
 		//信息
 		public function alertInfos()

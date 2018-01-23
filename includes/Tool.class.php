@@ -7,9 +7,17 @@
 		
 		//弹窗 页面跳转 go
 		static public function alertLocation($info,$url)
-		{
-			$script = "<script>alert('{$info}');window.location.href='{$url}';</script>";
-
+		{	
+			if(empty($info))
+			{
+				header('Location:'.$url);
+				exit();
+			}
+			else
+			{
+				$script = "<script>alert('{$info}');window.location.href='{$url}';</script>";
+			}
+			
 			exit($script);
 		}
 

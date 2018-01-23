@@ -18,7 +18,7 @@
 </ul>
 
 <p>
-	您好，<strong>admin</strong> [ 超级管理员 ] [ <a href="../" target="_blank">去首页</a> ] [ 退出 ]
+	您好，<strong>{$admin_user}</strong> [ {$level_name} ] [ <a href="../" target="_blank">去首页</a> ] [ 退出 ]
 </p>
 
 </body>

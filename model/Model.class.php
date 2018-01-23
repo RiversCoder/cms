@@ -34,7 +34,7 @@
 			$result = $mysqli->query($sql);
 			$obj = $result->fetch_object();
 
-			//清楚数据库连接
+			//清除数据库连接
 			DB::unDB($result,$mysqli);
 
 			return $obj;
