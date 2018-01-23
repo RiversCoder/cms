@@ -41,6 +41,10 @@
 					$this->delete();
 				break;
 
+				case 'login':
+					$this->login();
+				break;
+
 				default:
 					$this->defaults();
 				break;
@@ -79,7 +83,6 @@
 			{
 				Tool::alertBack('修改错误!');
 			}
-
 
 			//3. 查询当前要修改的数据 -> 需要获取当前页面的ID值
 			$this->model->id = $_GET['id'];
@@ -152,6 +155,21 @@
 			//在manage.tpl模板中 注入变量
 			$this->tpl->assign('AllManage',$arr);
 			$this->tpl->display('manage.tpl');
+		}
+
+		//Login
+		private function login()
+		{
+			if(!isset($_POST['send'])) return;
+
+			//验证 验证码 -> 位数
+			if(Validate::checkLength($_POST['code'],4,'equals')) Tool::alertBack('验证码必须是四位');
+
+			//验证 验证码 -> 匹配是否输入正确
+			echo $_SESSION['code'].'<br>';	
+			echo $_POST['code'];	
+				
+			print_r($_POST);
 		}
 	}
 ?>

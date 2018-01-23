@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<form id="adminLogin" method="post" action="">
+<form id="adminLogin" method="post" action="manage.php?action=login">
 	<fieldset>
 		<legend>登录CMS后台管理系统</legend>
 		<label>账　号：<input type="text" name="admin_user" class="text" /></label>
