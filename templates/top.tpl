@@ -18,7 +18,7 @@
 </ul>
 
 <p>
-	您好，<strong>{$admin_user}</strong> [ {$level_name} ] [ <a href="../" target="_blank">去首页</a> ] [ 退出 ]
+	您好，<strong>{$admin_user}</strong> [ {$level_name} ] [ <a href="../" target="_blank">去首页</a> ] [ <a href="manage.php?action=logout" target="_parent">退出</a> ]
 </p>
 
 </body>

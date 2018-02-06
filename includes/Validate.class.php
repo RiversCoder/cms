@@ -29,6 +29,15 @@
 			if (trim($_date) != trim($_otherdate)) return true;
 			return false;
 		}
+
+		//检测session是否存在
+		static public function checkSession()
+		{
+			if(!isset($_SESSION['admin']))
+			{
+				Tool::alertLocation('非法登录!','admin_login.php');
+			}
+		}
 		
 	}
 ?>

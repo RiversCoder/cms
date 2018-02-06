@@ -112,9 +112,9 @@
 		{
 			$this->createValidateBg();
 			$this->createValidateChar();
-			$this->createCode();
 			$this->createLines();
 			$this->createSnows();
+			$this->createCode();
 			$this->outPutImg();
 		}
 

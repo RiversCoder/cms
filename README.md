@@ -195,7 +195,13 @@ public function dovImg()
 *  登陆后显示
 
 
-> 10.And more
+> 10.后台登录设置
+
+* 前台JS验证
+* 非法登录设置
+* 不满足条件情况登录页面跳转
+
+> And more
 
 
 

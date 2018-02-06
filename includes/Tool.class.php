@@ -27,7 +27,15 @@
 			$script = "<script>alert('{$info}');history.back();</script>";
 			exit($script);
 		}
-		
+
+		//清理SESSION
+		static public function clearSession()
+		{
+			if(session_start())
+			{
+				session_destroy();
+			}
+		} 	
 		
 	}
 ?>

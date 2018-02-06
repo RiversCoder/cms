@@ -45,6 +45,10 @@
 					$this->login();
 				break;
 
+				case 'logout':
+					$this->logout();
+				break;
+
 				default:
 					$this->defaults();
 				break;
@@ -126,6 +130,9 @@
 		private function defaults()
 		{	
 
+			//验证非法登录
+			Validate::checkSession();
+
 			//初始化分页
 			$arr = $this->model->getManages();
 			$totalRecords = count($arr);
@@ -155,6 +162,14 @@
 			//在manage.tpl模板中 注入变量
 			$this->tpl->assign('AllManage',$arr);
 			$this->tpl->display('manage.tpl');
+		}
+
+		//Logout
+		private function logout()
+		{
+			//清理session
+			Tool::clearSession();
+			Tool::alertLocation(null,'admin_login.php');
 		}
 
 		//Login
@@ -187,6 +202,8 @@
 				$_SESSION['admin']['admin_user'] = $obj->admin_user;
 				$_SESSION['admin']['level_name'] = $obj->level_name;
 
+				
+
 				//登录成功直接进入后台
 				Tool::alertLocation(null,'admin.php');
 			}	
@@ -198,5 +215,8 @@
 
 			print_r($_POST);
 		}
+
+
+
 	}
 ?>
